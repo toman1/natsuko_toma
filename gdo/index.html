@@ -1,0 +1,94 @@
+<script src="https://pcportal-golfdigest-stg.herokuapp.com/herokupts/js/jquery-3.6.0.min.js"></script>
+<!-- top-two-column__section -->
+                <section class="top-two-column__section">
+                    <div class="top-brand__box">
+                        <div class="top-brand__head">
+                            <h3 class="top-brand__head-logo">
+                                <a href="https://bruder.golfdigest.co.jp/" target="_blank">
+                                    <img src="{{ asset('herokupts/images/top/brand_logo_bruder.svg') }}" alt="BRUDER" width="114" height="23">
+                                </a>
+                            </h3>
+                            <div class="top-brand__head-link">
+                                <a class="link-arrow autoClickCount" data-eventaction="ブルーダー" data-eventlabel="ブルーダーTOP" href="https://bruder.golfdigest.co.jp/" target="_blank">ブルーダー</a>
+                            </div>
+                        </div>
+                        <div class="top-brand__contents">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.4/ofi.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Clamp.js/0.5.1/clamp.min.js"></script>
+<script>
+$(function() {
+  $.ajax({
+	type: 'GET',
+	url: 'https://bruder.golfdigest.co.jp/rss',
+	cache: false,
+	dataType: 'XML',
+	success: function(data){
+		
+        $(data).find("channel item").each(function(i, item){
+			
+			var title = $(item).find('title').text();
+			var link = $(item).find('link').text();
+			
+			if(i === 0) {
+                var description = $(item).find('description').text();
+				
+                var div = document.createElement('div');
+                div.style.display = 'none';
+                div.innerHTML = description;
+                document.body.appendChild(div);
+                var imgSrc = $('div.inner870 figure:first-of-type').find('img').attr('src');
+                var readtxt = $('p.readtxt').text();
+				
+				if (readtxt === null) {
+					var readtxt = $('p.gdotop_txt').text();
+				}
+
+
+                document.body.removeChild(div);
+				
+				$('a#bruder_rss').attr('href', link).attr('data-eventlabel', title);
+				$('a#bruder_rss figure img').attr('src', imgSrc).attr('data-src', imgSrc);
+				$('a#bruder_rss h4.link-two-column__title').text(title);
+				$('a#bruder_rss p.link-two-column__text').text(readtxt);
+			}
+            
+            // for IE11
+            var userAgent = window.navigator.userAgent.toLowerCase();
+            if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 ) {
+                // object-fit for IE11
+                objectFitImages('.ofi-img');
+
+                // line-clamp for IE11
+                $('a#bruder_rss h4.link-two-column__title').each(function(i, elem) {
+                    $clamp(elem, {clamp: 3})
+                });
+                $('a#bruder_rss p.link-two-column__text').each(function(i, elem) {
+                    $clamp(elem, {clamp: 5})
+                });
+            }
+			
+        });
+		
+    },
+    error: function(err) {
+      $('.top-two-column__section:first-of-type').css('display', 'none');
+    }
+  });
+});
+</script>
+
+                            <a class="link-two-column autoClickCount" data-eventaction="ブルーダー" data-eventlabel="" href="" target="_blank" id="bruder_rss">
+                                <figure class="link-two-column__image link-two-column__image--large">
+                                    <img class="lazyload ofi-img" src="" data-src="" alt="BRUDER" loading="lazy">
+                                </figure>
+                                <div class="link-two-column__contents">
+                                    <h4 class="link-two-column__title"></h4>
+                                    <p class="link-two-column__text"></p>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- /top-two-column__section -->
